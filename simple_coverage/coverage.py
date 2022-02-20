@@ -6,6 +6,13 @@ from termcolor import colored
 called_instructions = []
 
 
+def tracer(frame, event, arg=None) -> None:
+    # callback for settrace which records the called instructions
+    # save called instructions in global array
+    called_instructions.append(frame.f_lineno)
+    return tracer
+
+
 def extract_instructions(func) -> dict:
 
     # extract source code from function
@@ -78,3 +85,30 @@ def analyse_instructions(instruction_dict) -> None:
         branch_coverage = round(branch_visited / branch_counter * 100, 2)
         print(f"Branch coverage: {branch_coverage} %")
 
+
+# coverage decorator
+def coverage(func):
+    def inner_func(*args, **kwargs):
+        global called_instructions
+
+        # extract source code from function
+        instruction_dict = extract_instructions(func)
+
+        # setup systrace
+        settrace(tracer)
+
+        # call function below decorator
+        results = func(*args, **kwargs)
+
+        # remove systrace
+        settrace(None)
+
+        print(f"\nFunction: {func.__name__}{args}\n")
+
+        analyse_instructions(instruction_dict)
+
+        # reset global var after finishing with one function
+        called_instructions = []
+        return results
+
+    return inner_func
