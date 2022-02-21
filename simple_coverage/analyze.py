@@ -1,5 +1,6 @@
 from termcolor import colored
 
+
 def analyse_instructions(instruction_dict, called_instructions) -> None:
     called_counter = 0  # counter for called instructions
     branch_counter = 0  # counter for braches

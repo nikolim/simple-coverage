@@ -3,8 +3,9 @@ import json
 
 
 file_name = "simple-coverage.json"
-curr_path = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(curr_path, file_name)
+# get current interpreter dir
+curr_working_dir = os.getcwd()
+file_path = os.path.join(curr_working_dir, file_name)
 
 
 def save_coverage_output(func_name, instructions_dict, called_instructions):
