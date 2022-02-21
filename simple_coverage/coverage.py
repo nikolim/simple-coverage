@@ -4,6 +4,7 @@ from functools import wraps
 from inspect import getsourcelines
 
 from simple_coverage.analyze import analyse_instructions
+from simple_coverage.output import save_coverage_output
 
 # global array to save called instructions
 called_instructions = []
@@ -60,6 +61,8 @@ def coverage(func):
         settrace(None)
 
         print(f"\nFunction: {func.__name__}{args}\n")
+        save_coverage_output(func_name=func.__name__, instructions_dict=instruction_dict, 
+                             called_instructions=called_instructions)  
 
         analyse_instructions(instruction_dict, called_instructions)
 
