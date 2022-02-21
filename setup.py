@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="simple_coverage",
-    version="0.1.4",
+    version="0.2.0",
     author="Nikolai Limbrunner",
     author_email="nikolai.limbrunner@gmail.com",
     description="Simple Coverage measurements for Python",
@@ -15,5 +15,5 @@ setuptools.setup(
     package_dir={"simple_coverage": "simple_coverage"},
     packages=["simple_coverage"],
     python_requires=">=3.6",
-    install_requires=['termcolor'],
+    install_requires=["termcolor"],
 )

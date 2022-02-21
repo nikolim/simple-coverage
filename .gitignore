@@ -2,3 +2,6 @@
 /build
 *__pycache__
 /venv
+simple_coverage.egg-info
+pytest.ini	
+*simple-simple_coverage.json
