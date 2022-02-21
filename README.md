@@ -9,11 +9,11 @@ pip install simple-coverage
 
 ### Usage 
 
-Just import the package and add the @coverage decorator about functions you want to inspect.
+Just import the package and add the @print_coverage decorator about functions you want to inspect.
 ```python
 from simple_coverage.coverage import coverage
 
-@coverage
+@print_coverage
 def demo(x, y) -> int:
     """
     Demo function
@@ -41,17 +41,17 @@ CALLED line 13:         return product
 Instruction coverage: 75.0 %
 Branch coverage: 50.0 %
 ```
+### Doctests
 
-If you want to use it with doctests, use the meta wrapper for the decorator.
+If you want to use it with doctests, use the meta wrapper `@doctest_wrapper` and the `log_coverage` decorator. This will create a `simple-coverage.json` file in the current working directory since writing into the console would collide with the doctests.
 ```python
-from simple_coverage.coverage import coverage, doctest_wrapper
+from simple_coverage.coverage import log_coverage, doctest_wrapper
 
-@doctest_wrapper(coverage)
+@doctest_wrapper(log_coverage)
 def demo(x,y) -> int:
+	...
 ```
-
-### Note 
-* It is currently not compatible with coverage.py or pytest since it uses the same underlying system tracer.
-* It only analyses the coverage for each function call seperately.
-
-
+Look at the `demo.py` file for reference. To start the doctest use pytest as usual.
+```bash
+pytest --doctest-modules demo.py
+```
