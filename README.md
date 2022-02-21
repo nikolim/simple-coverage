@@ -14,7 +14,7 @@ Just import the package and add the @coverage decorator about functions you want
 from simple_coverage.coverage import coverage
 
 @coverage
-def demo(x, y) -> bool:
+def demo(x, y) -> int:
     """
     Demo function
     """
@@ -40,6 +40,14 @@ CALLED line 13:         return product
 
 Instruction coverage: 75.0 %
 Branch coverage: 50.0 %
+```
+
+If you want to use it with doctests, use the meta wrapper for the decorator.
+```python
+from simple_coverage.coverage import coverage, doctest_wrapper
+
+@doctest_wrapper(coverage)
+def demo(x,y) -> int:
 ```
 
 ### Note 

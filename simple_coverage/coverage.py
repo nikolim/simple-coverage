@@ -1,6 +1,8 @@
 import inspect
 from sys import settrace
 from termcolor import colored
+from functools import wraps
+
 
 # global array to save called instructions
 called_instructions = []
@@ -112,3 +114,10 @@ def coverage(func):
         return results
 
     return inner_func
+
+
+# coverage decorator
+def doctest_wrapper(decorator): 
+    def wrapper(func): 
+        return wraps(func)(decorator(func))
+    return wrapper 
