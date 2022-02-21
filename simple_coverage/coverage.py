@@ -61,7 +61,7 @@ def analyse_instructions(instruction_dict) -> None:
             indention_level -= 1
 
         # just print "else" instructions
-        if line.replace(" ", "").replace("\t", "") == "else:":
+        if line.replace(" ", "").replace("\t", "") in ["else:", "except:"]:
             print(f"IGNORE line {key}: {instruction_dict[key]}")
             else_counter += 1
         else:
