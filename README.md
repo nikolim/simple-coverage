@@ -55,3 +55,11 @@ Look at the `demo.py` file for reference. To start the doctest use pytest as usu
 ```bash
 pytest --doctest-modules demo.py
 ```
+Afterwards you can create the report:
+```bash
+python3 -m simple_coverage.report
+```
+Note that all runs will be saved for the next report. To start over and delete to report run:
+```bash
+python3 -m simple_coverage.clean
+```
