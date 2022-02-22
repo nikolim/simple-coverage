@@ -30,8 +30,10 @@ def save_coverage_output(func_name, instructions_dict, called_instructions):
 
         # check if function already exists
         if func_name in data:
-            # append called instructions to existing function
-            data[func_name]["called_instructions"].extend(called_instructions)
+            # append new called instructions to existing function
+            for instruction in called_instructions: 
+                if instruction not in data[func_name]["called_instructions"]:
+                    data[func_name]["called_instructions"].append(instruction)
         else:
             # otherwise create new entry for new function
             data.update(
