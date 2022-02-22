@@ -27,7 +27,7 @@ def analyse_instructions(instruction_dict, called_instructions) -> None:
             print(f"IGNORE line {key}: {instruction_dict[key]}")
             else_counter += 1
         else:
-            if key in called_instructions:
+            if int(key) in called_instructions:
                 called_counter += 1
                 if new_branch:
                     branch_visited += 1
