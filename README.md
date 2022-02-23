@@ -9,7 +9,7 @@ pip install simple-coverage
 
 ### Usage 
 
-Just import the package and add the @print_coverage decorator about functions you want to inspect.
+Just import the package and add the @print_coverage decorator above functions you want to inspect.
 ```python
 from simple_coverage.coverage import coverage
 
