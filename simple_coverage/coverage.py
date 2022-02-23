@@ -10,15 +10,24 @@ from simple_coverage.output import save_coverage_output
 called_instructions = []
 
 
-def tracer(frame, event, arg=None) -> None:
-    # callback for settrace which records the called instructions in global array
+def _tracer(frame, event, arg=None) -> None:
+    """
+    Tracer function which is called by the settrace function.
+    Records the called instructions into global array.
+    @param frame: frame of the traced function
+    """
     line_number = frame.f_lineno
     if line_number not in called_instructions:
         called_instructions.append(frame.f_lineno)
-    return tracer
+    return _tracer
 
 
 def extract_instructions(func) -> dict:
+    """
+    Extracts the source code from a function and returns a dictionary with
+    @param func: function to extract source code from.
+    @return: dictionary with instructions and their line numbers.
+    """
     # extract source code from function
     source_lines = getsourcelines(func)
     # get number of comments (skip docstrings)
@@ -39,15 +48,19 @@ def extract_instructions(func) -> dict:
     return instructions
 
 
-# coverage decorator which writes coverage to file
 def log_coverage(func):
+    """ "
+    Decorator which logs the coverage into a file.
+    @param func: function to be decorated
+    """
+
     def inner_func_log(*args, **kwargs):
         global called_instructions
         # extract source code from function
         instruction_dict = extract_instructions(func)
         prev_tracer = gettrace()
         # setup systrace
-        settrace(tracer)
+        settrace(_tracer)
         # call function below decorator
         results = func(*args, **kwargs)
         # reset tracer
@@ -64,8 +77,12 @@ def log_coverage(func):
     return inner_func_log
 
 
-# coverage decorator which prints coverage to console
 def print_coverage(func):
+    """ "
+    Decorator which prints the coverage to console.
+    @param func: function to be decorated
+    """
+
     def inner_func_print(*args, **kwargs):
         global called_instructions
         # extract source code from function
@@ -73,7 +90,7 @@ def print_coverage(func):
         # previous tracer
         prev_tracer = gettrace()
         # setup systrace
-        settrace(tracer)
+        settrace(_tracer)
         # call function below decorator
         results = func(*args, **kwargs)
         # reset tracer
@@ -88,8 +105,12 @@ def print_coverage(func):
     return inner_func_print
 
 
-# meta decotest decorator
 def doctest_wrapper(decorator):
+    """ "
+    Meta decorator which wraps the decorator to be used with doctests.
+    @param decorator: decorator to be wrapped
+    """
+
     def wrapper(func):
         return wraps(func)(decorator(func))
 

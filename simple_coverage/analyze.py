@@ -2,6 +2,12 @@ from termcolor import colored
 
 
 def analyse_instructions(instruction_dict, called_instructions) -> None:
+    """
+    Analyse the instructions and print the coverage to console.
+
+    @param instruction_dict: dict of instructions
+    @param called_instructions: list of called instructions
+    """
     called_counter = 0  # counter for called instructions
     branch_counter = 0  # counter for braches
     branch_visited = 0  # counter for visited branches
