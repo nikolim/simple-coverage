@@ -9,6 +9,14 @@ file_path = os.path.join(curr_working_dir, file_name)
 
 
 def save_coverage_output(func_name, instructions_dict, called_instructions):
+    """
+    Save all instructions of a function and an array with the callend instruction
+    to json file (simple-coverage.json).
+
+    @param func_name: name of function
+    @param instructions_dict: dict of instructions
+    @param called_instructions: list of called instructions
+    """
 
     # check if file exists
     if not os.path.isfile(file_path):
